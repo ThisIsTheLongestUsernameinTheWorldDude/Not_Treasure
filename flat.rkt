@@ -4,19 +4,19 @@
 ;List-of-names
 ;It's a list- OF NAMES
 ;check excpects
-(check-expect (contains-flatt? (cons "Findler" empty)) false)
-(check-expect (contains-flatt? (cons "Flatt" empty)) true)
+(check-expect (contains "Flatt" (cons "Findler" empty)) false)
+(check-expect (contains "Flatt" (cons "Flatt" empty)) true)
 (check-expect
-  (contains-flatt? (cons "Mur" (cons "Fish"  (cons "Find" empty))))
+  (contains "Flatt" (cons "Mur" (cons "Fish"  (cons "Find" empty))))
   false)
 (check-expect
-  (contains-flatt? (cons "A" (cons "Flatt" (cons "C" empty))))
+  (contains "Flatt" (cons "A" (cons "Flatt" (cons "C" empty))))
   true)
 ;Is "flatt on a list of names"?
-(define (contains-flatt? l) 
+(define (contains s l) 
   (cond
     [(empty? l) false]
     [(cons? l) 
      (cond
-       [(string=? (first l) "Flatt") true]
-       [else (contains-flatt? (rest l)) ])]))
+       [(string=? (first l) s) true]
+       [else (contains s (rest l)) ])]))
