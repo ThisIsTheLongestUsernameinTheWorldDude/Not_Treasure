@@ -13,4 +13,10 @@
   (contains-flatt? (cons "A" (cons "Flatt" (cons "C" empty))))
   true)
 ;Is "flatt on a list of names"?
-(define (contains-flatt? l) false)
+(define (contains-flatt? l) 
+  (cond
+    [(empty? l) false]
+    [(cons? l) 
+     (cond
+       [(string=? (first l) "Flatt") true]
+       [else (contains-flatt? (rest l)) ])]))
